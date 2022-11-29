@@ -7,6 +7,7 @@ const multer = require("multer");
 const path = require("path");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
+const Leaves = require("../models/leaves");
 const ejs = require("ejs");
 
 const storage = multer.diskStorage({
@@ -20,7 +21,18 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  const alowedextentions = [".png", ".pdf", ".jpeg", ".jpg", ".mp4"];
+  const alowedextentions = [
+    ".png",
+    ".pdf",
+    ".jpeg",
+    ".jpg",
+    ".mp4",
+    "PNG",
+    "PDF",
+    "JPEG",
+    "JPG",
+    "MP4",
+  ];
   const fileExtention = path.extname(file.originalname);
   cb(null, alowedextentions.includes(fileExtention));
 };
@@ -134,6 +146,54 @@ router.post("/resetpasswordrequest", async (req, res) => {
       { password: hashedpassword }
     );
     res.json(user);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// add leave
+router.post("/addleave", upload.single("file"), async (req, res) => {
+  try {
+    if (req.file) {
+      req.body.file = req?.file.filename;
+    }
+    const leave = await Leaves.create(req.body);
+    res.json(leave);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// get user's leaves
+
+router.get("/getleaves/:id", async (req, res) => {
+  try {
+    const leaves = await Leaves.find({ user: req.params.id }).populate("user");
+    res.json(leaves);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// get all leaves
+
+router.get("/getallleaves", async (req, res) => {
+  try {
+    const leaves = await Leaves.find().populate("user");
+    res.json(leaves);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// approve leave
+
+router.put("/approveleave/:id", async (req, res) => {
+  try {
+    const leave = await Leaves.findByIdAndUpdate(req.params.id, {
+      status: req.body.status,
+    });
+    res.json(leave);
   } catch (e) {
     console.log(e);
   }
