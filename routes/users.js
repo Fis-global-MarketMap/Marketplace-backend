@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 const Leaves = require("../models/leaves");
 const ejs = require("ejs");
+const Profile = require("../models/profile");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -50,6 +51,7 @@ router.post("/add", async (req, res, next) => {
 
   req.body.password = await bcrypt.hash(req.body.password, 10);
   const user = await User.create(req.body);
+
   res.send(user);
 });
 
@@ -76,6 +78,11 @@ router.post("/login", async (req, res, next) => {
 //delete user route
 router.delete("/delete/:id", async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
+  // delete profile
+  const profile = await Profile.findOneAndDelete({ user: user._id });
+  // delete leaves
+  const leaves = await Leaves.deleteMany({ user: user._id });
+
   res.send(user);
 });
 
@@ -106,6 +113,9 @@ router.post("/adduser", upload.single("image"), async (req, res) => {
     }
 
     const registreduser = await User.create(myUser);
+    const profile = await Profile.create({
+      user: registreduser._id,
+    });
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -194,6 +204,50 @@ router.put("/approveleave/:id", async (req, res) => {
       status: req.body.status,
     });
     res.json(leave);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/getprofile/:id", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.id }).populate(
+      "user"
+    );
+    res.json(profile);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.put("/updateprofile/:id", async (req, res) => {
+  try {
+    let data = req.body;
+    const { skills } = req.body;
+    const oldSkills = await Profile.findOne({ user: req.params.id });
+
+    //remove skills with same name
+    const newSkills = skills?.filter(
+      (skill) => !oldSkills?.skills?.some((s) => s.name === skill.name)
+    );
+    delete data.skills;
+    const profile = await Profile.findOneAndUpdate(
+      { user: req.params.id },
+      { ...data, $push: { skills: newSkills } }
+    );
+    res.json(profile);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/addexperience/:id", async (req, res) => {
+  try {
+    const profile = await Profile.findOneAndUpdate(
+      { user: req.params.id },
+      { $push: { timeline: req.body } }
+    );
+    res.json(profile);
   } catch (e) {
     console.log(e);
   }
