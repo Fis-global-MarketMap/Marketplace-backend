@@ -14,7 +14,7 @@ describe("User Model Test", () => {
   const user = {
     name: "test",
     email: "test@test.com",
-    test_password: "test123",
+    test_password: process.env.TEST_PASSWORD,
     phone: "123456789",
     lastn: "test",
     Datebirth: "12/12/1999",
