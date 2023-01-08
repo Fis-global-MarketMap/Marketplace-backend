@@ -10,6 +10,7 @@ const fs = require("fs");
 const Leaves = require("../models/leaves");
 const ejs = require("ejs");
 const Profile = require("../models/profile");
+require('dotenv').config();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -133,6 +134,7 @@ router.post("/adduser", upload.single("image"), async (req, res) => {
       name: req.body.name,
       id: registreduser._id,
       timestamp: timestamp,
+      url : process.env.FRONTEND_URL
     });
 
     let info = await transporter.sendMail({
