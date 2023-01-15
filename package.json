@@ -25,7 +25,12 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
+    ],
+    "modulePaths": [
+      "<../models/User>",
+      "<../models/Profile>"
     ]
+
   },
   "devDependencies": {
     "jest": "^29.3.1",
