@@ -48,7 +48,8 @@ jobs:
         
     - name: Create kubeconfig
       run: |
-        git update-index --chmod=+x mkdir ${HOME}/.kube
+        mkdir ${HOME}/.kube
+        git update-index --chmod=+x  ${HOME}/.kube
         echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
         sudo cat ${HOME}/.kube/config
     - name: Use context
