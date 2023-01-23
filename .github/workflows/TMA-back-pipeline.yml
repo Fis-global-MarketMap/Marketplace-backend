@@ -60,7 +60,9 @@ jobs:
     - name: Use context
       run: kubectl config use-context kubernetes-admin@kubernetes
     - name: check
-      run: kubectl config current-context
+      run: |
+       kubectl config current-context
+       kubectl config view
 
     - name: Deploy to K8s
       run: kubectl get pods
