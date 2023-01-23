@@ -48,9 +48,8 @@ jobs:
 
     - name: Create kubeconfig
       run: |
-        mkdir -p ${HOME}/.kube
-        sudo echo "${{ secrets.KUBE_CONFIG }} | base64 --decode" > ${HOME}/.kube/config
-        sudo cat $HOME/.kube/config
+       sudo echo "$KUBE_CONFIG" | base64 --decode > kubeconfig.yaml
+       export KUBECONFIG=$PWD/kubeconfig.yaml
   #  - name: Use context
    #   run: kubectl config use-context kubernetes-admin@kubernetes
       
