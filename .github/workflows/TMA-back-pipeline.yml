@@ -66,9 +66,9 @@ jobs:
     - name: Use context
       run: kubectl config use-context kubernetes-admin@kubernetes
     - name: Disable swap
-      run: swapoff -a
+      run: sudo swapoff -a
     - name: Disable firewall
-      run: ufw disable
+      run: sudo ufw disable
 
     - name: Deploy to K8s
       run: kubectl get pods
