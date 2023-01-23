@@ -51,10 +51,10 @@ jobs:
        sudo echo "$KUBE_CONFIG" | base64 --decode > kubeconfig.yaml
        export KUBECONFIG=$PWD/kubeconfig.yaml
        
-       - name: run kubectl command using kubectl action
-         uses: azure/k8s-actions/kubectl@v1
-         with:
-         args: get pods
+    - name: run kubectl command using kubectl action
+      uses: azure/k8s-actions/kubectl@v1
+      with:
+       args: get pods
   #  - name: Use context
    #   run: kubectl config use-context kubernetes-admin@kubernetes
       
