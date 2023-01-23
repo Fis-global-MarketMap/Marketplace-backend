@@ -51,8 +51,9 @@ jobs:
         mkdir -p ${HOME}/.kube
         sudo echo "${{ secrets.KUBE_CONFIG }} | base64 --decode" > ${HOME}/.kube/config
         sudo cat $HOME/.kube/config
-    - name: Use context
-      run: kubectl config use-context kubernetes-admin@kubernetes
+  #  - name: Use context
+   #   run: kubectl config use-context kubernetes-admin@kubernetes
       
     - name: Deploy to Kubernetes
-      run: kubectl apply -f test.yml
+   #   run: kubectl apply -f test.yml
+      run: kubectl get pods 
