@@ -46,12 +46,6 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:latest
 
-   # - name: Use context
-   #   run: kubectl config use-context kubernetes-admin@kubernetes
-      
-   # - name: Deploy to Kubernetes
-   #   run: kubectl apply -f test.yml
-   #   run: kubectl get pods 
   deploy:
     name: Deploy to Kubernetes
     runs-on: ubuntu-latest
@@ -65,10 +59,8 @@ jobs:
         cat $HOME/.kube/config
     - name: Use context
       run: kubectl config use-context kubernetes-admin@kubernetes
-    - name: Disable swap
-      run: sudo swapoff -a
-    - name: Disable firewall
-      run: sudo ufw disable
+    - name: check
+      run: kubectl config current-context
 
     - name: Deploy to K8s
       run: kubectl get pods
