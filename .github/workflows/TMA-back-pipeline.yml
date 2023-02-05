@@ -53,6 +53,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Create kubeconfig
+      env:
+       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       run: |
         mkdir -p $HOME/.kube
         sudo echo "${{secrets.KUBE_CONFIG// /}}" | base64 --decode > $HOME/.kube/config
