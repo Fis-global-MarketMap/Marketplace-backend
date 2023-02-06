@@ -61,7 +61,7 @@ jobs:
         cat $HOME/.kube/config
     - name: Use context
       run: kubectl config use-context kubernetes-admin@kubernetes
-    - name: check
+    - name: check context and config view
       run: |
        kubectl config current-context
        kubectl config view
