@@ -69,5 +69,5 @@ jobs:
     - name: Deploy to K8s
       run: |
        sudo swapoff -a 
-       kubectl proxy
+       sudo ufw disable
        kubectl get pods -n kube-system
