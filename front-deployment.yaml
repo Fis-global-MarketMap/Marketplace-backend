@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-tma
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: front-tma
+    spec:
+      containers:
+        - name: react-docker
+          image: dhakerkarous/react-docker:latest
+          ports:
+            - containerPort: 80
+              name: http-port
+  selector:
+    matchLabels:
+      app: front-tma
