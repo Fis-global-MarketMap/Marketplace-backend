@@ -28,7 +28,9 @@
     ],
     "testTimeout": 30000,
     "collectCoverage": true,
-    "coverageReporters": ["lcov"]
+    "coverageReporters": [
+      "lcov"
+    ]
   },
   "devDependencies": {
     "jest": "^29.3.1",
