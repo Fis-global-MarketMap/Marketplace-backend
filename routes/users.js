@@ -61,6 +61,7 @@ router.post("/add", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const userCheck = await User.findOne({ email: req.body.email });
+    console.log(req.body)
     if (
       userCheck === null ||
       !bcrypt.compareSync(req.body.password, userCheck.password)
