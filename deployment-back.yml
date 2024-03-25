@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-tma2
+  labels:
+    app: back-tma2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back-pod
+  template:
+    metadata:
+      name: back-pod
+      labels:
+        app: back-pod
+    spec:
+      containers:
+      - name: back-image
+        image: dhakerkarous/back-image:v1
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: back-tma2
+   labels:
+     app: back-tma2
+      
+spec:
+   type: NodePort
+   ports:
+     - protocol: TCP
+       port: 3000
+       NodePort: 32322
+   selector:
+     app: back-pod
