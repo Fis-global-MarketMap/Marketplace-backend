@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: back-image
-        image: dhakerkarous/back-image:v1
+        image: dhakerkarous/back-image:latest
         imagePullPolicy: Always
         ports:
           - containerPort: 3000
