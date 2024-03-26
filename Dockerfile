@@ -9,5 +9,6 @@ EXPOSE 3000
 # Define environment variable
 ENV NODE_ENV production
 # Start app with PM2
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+#CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+CMD nodemon
 #CMD yarn start
