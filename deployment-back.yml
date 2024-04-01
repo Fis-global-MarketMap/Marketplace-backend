@@ -24,16 +24,30 @@ spec:
             - containerPort: 3000
           env:
             - name: MONGO_URI
-              value: MONGO_URI_PLACEHOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: MONGO_URI
             - name: PORT
-              value: "3000"
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: PORT
             - name: EMAIL
-              value: EMAIL_PLACEHOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: EMAIL
             - name: PASSWORD
-              value: PASSWORD_PLACEHOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: PASSWORD
             - name: FRONTEND_URL
-              value: http://192.168.181.128:32321
-
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: FRONTEND_URL
 ---
 apiVersion: v1
 kind: Service
