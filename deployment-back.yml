@@ -24,11 +24,11 @@ spec:
             - containerPort: 3000
           env:
             - name: MONGO_URI
-              value: MONGO_URI
+              value: MONGO_URI_PLACEHOLDER
             - name: EMAIL
-              value: EMAIL
+              value: EMAIL_PLACEHOLDER
             - name: PASSWORD
-              value: PASSWORD
+              value: PASSWORD_PLACEHOLDER
             - name: FRONTEND_URL
               value: http://192.168.181.128:32321
 
