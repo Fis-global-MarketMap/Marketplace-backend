@@ -6,7 +6,7 @@ metadata:
   labels:
     app: back-fis-marketmap
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: back-pod
