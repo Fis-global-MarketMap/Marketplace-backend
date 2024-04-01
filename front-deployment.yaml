@@ -15,6 +15,15 @@ spec:
           ports:
             - containerPort: 80
               name: http-port
+          env:
+            - name: MONGO_URI
+              value: "MONGO_URI"
+            - name: EMAIL
+              value: "EMAIL"
+            - name: PASSWORD
+              value: "PASSWORD"
+            - name: FRONTEND_URL
+              value: "http://192.168.181.128:32321"
   selector:
     matchLabels:
       app: front-tma
