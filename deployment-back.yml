@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: back-tma2
+  name: back-fis-marketmap
   labels:
-    app: back-tma2
+    app: back-fis-marketmap
 spec:
   replicas: 1
   selector:
@@ -52,9 +52,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: back-tma2
+  name: back-fis-marketmap
   labels:
-    app: back-tma2
+    app: back-fis-marketmap
 spec:
   type: NodePort
   ports:
